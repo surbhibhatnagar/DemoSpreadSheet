@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link data-require="bootstrap-css@*" data-semver="3.0.3" rel="stylesheet"
+          href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body ng-app="gridApp">
+<div class="container">
+    <h1>Zugata SpreadSheet!</h1>
+    <div ng-controller="GridCtrl" class="spreadsheet-container" ng-grid="gridOptions">
+        <table class="spreadsheet table table-condensed table-striped table-bordered">
+            <thead>
+            <tr class="row-header">
+                <th class="col-sno"></th>
+                <td class="col text-center" ng-model="col.Index" ng-repeat="col in records[0]">
+                    <span>{{alphaIndex($index)}}</span>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="record in records">
+                <td class="col-sno text-center">{{$varRow = $index}}</td>
+                <td class="col" ng-repeat="col in record">
+                    <!--<p>Current value of row is {{$varRow}}!</p>-->
+                    <input class="editable-cell" ng-model="col.Value" ng-change="recalculate()"
+                           ng-keypress="calculate($event, col.Value, records)" ng-controller="cellCtrl"/>
+                    {{col.value}}
+                    <!--<p>Current value of col is {{$index}}!</p>
+                    <p>Current value entered is {{col.Value}}!</p> -->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script data-require="angular.js@*" data-semver="1.2.11" src="http://code.angularjs.org/1.2.11/angular.js"></script>
+<script src="script.js"></script>
+</body>
+
+</html>
